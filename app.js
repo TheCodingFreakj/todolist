@@ -2,6 +2,7 @@ const express = require("express");
 //let ejs = require('ejs');
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const { compile } = require("ejs");
 
 mongoose.connect('mongodb://localhost:27017/listDB', {useNewUrlParser: true, useUnifiedTopology: true});
 
@@ -103,16 +104,34 @@ app.get("/:customListName", function(req, res){
 
 app.post("/", function(req, res){
 const newAddedItem= req.body.itemAdd;
+const customList= req.body.itemsAddButton;
 
 //Creating new document as per button click parameter
 
 const item = new Item({ name: newAddedItem });
+
+
+if(customList === "Today"){
 
 item.save();
 
 //To show on page redirect to the route where we render document
 
 res.redirect("/");
+
+}else{
+
+   List.findOne({name: customList}, function(err, result){
+     result.items.push(item);
+
+     result.save();
+   //redirect to the /:customListName route to render
+     res.redirect("/" + customList);
+   })
+
+}
+
+
 
 
 });
