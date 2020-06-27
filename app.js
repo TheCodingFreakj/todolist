@@ -139,18 +139,51 @@ res.redirect("/");
 
 app.post("/delete", function(req,res){
 
-   console.log(req.body.checkbox);
+   //console.log(req.body.checkbox);
 
    const checkedId = req.body.checkbox;
 
-   Item.findByIdAndRemove(checkedId, function(err){
+   //check which list the deleted items request came from
 
-      if(!err){
-         console.log("Ticked Item is deleted");
-         res.redirect("/");
-      }
+   const valOfdeleteListName = req.body.deleteListName;
 
-   });
+   //check if the post request to delete an item comes from the default list or custom list
+
+   if(valOfdeleteListName === "Today"){
+
+      //delete from default list using id
+
+      Item.findByIdAndRemove(checkedId, function(err){
+
+         if(!err){
+            console.log("Ticked Item is deleted");
+            res.redirect("/");
+         }
+   
+      });
+
+   } else {
+      //find the doc that is requested to be delted in the collection 
+      //update the list to remove the checked iten wth the checkedid
+      //In this case we have to go through the array of items to the schema and then remove from array
+
+      const filter = { name: valOfdeleteListName };
+      //const update = { $pull: { <field1>: We find the document from the array we want to update: {Query: This is the checkedId} } };
+      const update = {$pull: { items: {_id: checkedId}}};
+
+      List.findOneAndUpdate(filter, update, function(err, result){
+
+         if(!err){
+            console.log("Ticked Item from the route is deleted");
+            res.redirect("/" + valOfdeleteListName);
+         }
+
+      });
+
+
+   }
+
+ 
 
 });
    
