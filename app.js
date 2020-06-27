@@ -29,7 +29,7 @@ const customlistSchema = new mongoose.Schema({
    items: [listSchema]
  });
 
- const CustomList = mongoose.model('CustomList', customlistSchema);
+ const List = mongoose.model('List', customlistSchema);
 
 app.get("/", function(req, res){
    //render the list page here
@@ -67,16 +67,35 @@ app.get("/", function(req, res){
 
 app.get("/:customListName", function(req, res){
 
-   console.log(req.params.customListName);
+   //console.log(req.params.customListName);
 
-   // const customListName= req.params.customListName;
+   const customListName= req.params.customListName;
 
-   // const list = new Item({ 
-   //    name: customListName,
-   //    items: itemsArray
-   // });
 
-   // list.save();
+   List.findOne({ name: customListName}, function(err, result){
+
+      if(!err){
+         if(!result){
+           //create a new document
+
+           const list = new List({ 
+            name: customListName,
+            items: itemsArray // Used the default array to prepopulate the items
+         });
+      
+         list.save();
+         res.redirect("/" + customListName);
+
+         }else {
+            //show the existing list
+
+            res.render("list", {listTitle:result.name, listItemsArray:result.items} );  
+         }
+      }
+
+   });
+
+  
 
 });
 
