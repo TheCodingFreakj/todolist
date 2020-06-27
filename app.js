@@ -3,6 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const { compile } = require("ejs");
+const _ = require("lodash");
 
 mongoose.connect('mongodb://localhost:27017/listDB', {useNewUrlParser: true, useUnifiedTopology: true});
 
@@ -70,7 +71,7 @@ app.get("/:customListName", function(req, res){
 
    //console.log(req.params.customListName);
 
-   const customListName= req.params.customListName;
+   const customListName= _.capitalize(req.params.customListName);
 
 
    List.findOne({ name: customListName}, function(err, result){
