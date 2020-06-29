@@ -38,24 +38,19 @@ app.get("/", function(req, res){
 
    //find all items in db
    Item.find({}, function(err, foundLists){
-
-      
-
-    //check if the array is empty 
+   //check if the array is empty 
     if(itemsArray.length === 0){
         //insert this document in db
-
-
-        Item.insertMany( itemsArray, function(err){
+       Item.insertMany( itemsArray, function(err){
 
          if(err){
             console.log(err);
          }else {
             console.log("Documents stored in Item collection");
          }
-      } );
+      });
       res.redirect("/");
-      console.log(foundLists);
+      
     } else {
         res.render("list", {listTitle:"Today", listItemsArray:foundLists} );
     }
