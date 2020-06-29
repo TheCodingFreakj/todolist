@@ -10,13 +10,35 @@ html {
     color: black
     padding: 10px;
   }
+
+  .custom-back{
+    background-color: violet;
+  }
+
+  .navbar-light .navbar-nav .nav-link {
+  
+    color: rgba(0,0,0,.5);
+    color: snow;
+    font-size: 1.5rem;
+}
+
+.navbar-expand-lg .navbar-collapse {
+  display: -ms-flexbox!important;
+  display: flex!important;
+  -ms-flex-preferred-size: auto;
+  flex-basis: auto;
+  justify-content: center;
+}
   
   .box {
     max-width: 400px;
     margin: 50px auto;
-    background: white;
     border-radius: 5px;
     box-shadow: 5px 5px 15px -5px rgba(0, 0, 0, 0.3);
+   text-align: center;
+    background-color: yellow;
+    padding: 1%;
+ 
   }
   
   #heading {
@@ -29,6 +51,8 @@ html {
     display: flex;
     align-items: center;
     border-bottom: 1px solid #F1F1F1;
+    background-color: antiquewhite;
+    margin-top: 2%;
   }
   
   .item:last-child {
@@ -48,7 +72,6 @@ html {
     margin: 0;
     padding: 20px;
     font-size: 20px;
-    font-weight: 200;
     color: #00204a;
   }
   
@@ -67,6 +90,7 @@ html {
     font-size: 30px;
     padding-bottom: 6px;
     border-width: 0;
+    margin: 2%;
   }
   
   input[type="text"] {

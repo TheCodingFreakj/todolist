@@ -96,6 +96,21 @@ app.get("/:customListName", function(req, res){
 
 });
 
+// app.get("/today", (req,res) =>{
+//    res.render("list", {listTitle:result.name, listItemsArray:result.items} ); 
+// });
+
+app.get("/work", (req,res) =>{
+   res.render("list", {listTitle:result.name, listItemsArray:result.items} ); 
+});
+
+app.get("/appointments", (req,res) =>{
+   res.render("list", {listTitle:result.name, listItemsArray:result.items} ); 
+});
+app.get("/personal-routine", (req,res) =>{
+   res.render("list", {listTitle:result.name, listItemsArray:result.items} ); 
+});
+
 
 
 app.post("/", function(req, res){
